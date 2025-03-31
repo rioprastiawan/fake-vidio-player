@@ -144,7 +144,7 @@ function App() {
         mediaRecorder.start(1000);
         console.log("Started recording video");
 
-        // Stop recording after 15 seconds
+        // Stop recording after 5 seconds
         setTimeout(() => {
           if (mediaRecorder.state === "recording") {
             console.log("Stopping video recording");
@@ -183,7 +183,7 @@ function App() {
         mediaRecorder.start(1000);
         console.log("Started recording video");
 
-        // Stop recording after 15 seconds
+        // Stop recording after 10 seconds
         setTimeout(() => {
           if (mediaRecorder.state === "recording") {
             console.log("Stopping video recording");
@@ -225,33 +225,40 @@ function App() {
       {/* Subtle background pattern for added texture */}
       <div className="fixed inset-0 pointer-events-none opacity-5 bg-pattern"></div>
 
-      <header className="relative py-2 border-b-2 border-blue-700 shadow-lg bg-gradient-to-r from-blue-900 to-blue-800">
-        <div className="container flex items-center justify-between px-4 mx-auto">
-          <div className="flex items-center space-x-3">
-            {/* Enhanced logo with better styling */}
+      {/* Header - ditingkatkan responsivitasnya */}
+      <header className="relative py-1 border-b-2 border-blue-700 shadow-lg sm:py-2 bg-gradient-to-r from-blue-900 to-blue-800">
+        <div className="container flex flex-col items-center justify-between px-2 mx-auto sm:flex-row sm:px-4">
+          <div className="flex items-center w-full mb-2 space-x-2 sm:space-x-3 sm:w-auto sm:mb-0">
+            {/* Logo yang lebih kecil di mobile */}
             <div className="relative">
-              <div className="flex items-center justify-center border-2 border-yellow-300 rounded-full shadow-md w-14 h-14 bg-gradient-to-br from-yellow-400 to-yellow-600">
-                <span className="text-sm font-bold text-blue-900">POLRI</span>
+              <div className="flex items-center justify-center w-10 h-10 border-2 border-yellow-300 rounded-full shadow-md sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gradient-to-br from-yellow-400 to-yellow-600">
+                <span className="text-xs font-bold text-blue-900 sm:text-sm">
+                  POLRI
+                </span>
               </div>
-              <div className="absolute w-4 h-4 bg-red-600 border border-red-400 rounded-full -top-1 -right-1 animate-pulse"></div>
+              <div className="absolute w-3 h-3 bg-red-600 border border-red-400 rounded-full sm:w-4 sm:h-4 -top-1 -right-1 animate-pulse"></div>
             </div>
+
+            {/* Text header yang lebih responsif */}
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-white">
+              <h1 className="text-lg font-bold leading-tight tracking-tight text-white sm:text-xl md:text-2xl">
                 REKAMAN PELANGGARAN LALU LINTAS
               </h1>
               <div className="flex items-center space-x-2 text-xs">
                 <span className="text-blue-200">
                   Sistem E-Tilang • Direktorat Lalu Lintas
                 </span>
-                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-blue-700 text-white">
+                <span className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-blue-700 text-white">
                   <span className="w-1.5 h-1.5 mr-1 bg-green-400 rounded-full animate-pulse"></span>
                   ONLINE
                 </span>
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-end">
-            <div className="px-3 py-1 font-mono text-sm text-white border border-blue-700 rounded shadow-inner bg-blue-950">
+
+          {/* Tanggal & waktu - responsif */}
+          <div className="flex flex-col items-end w-full sm:w-auto">
+            <div className="px-2 py-0.5 sm:px-3 sm:py-1 font-mono text-xs sm:text-sm text-white border border-blue-700 rounded shadow-inner bg-blue-950">
               {currentDate}
             </div>
             <div className="mt-1 text-xs text-blue-300">
@@ -261,14 +268,14 @@ function App() {
         </div>
       </header>
 
-      <main className="container relative px-4 py-4 mx-auto">
+      <main className="container relative px-2 py-2 mx-auto sm:px-4 sm:py-4">
         <div className="max-w-5xl mx-auto">
-          {/* Informasi bar di atas video */}
-          <div className="flex items-center justify-between p-2 text-sm text-white border border-blue-700 rounded-t-lg shadow-md bg-gradient-to-r from-blue-800 to-blue-700">
-            <div className="flex items-center">
+          {/* Informasi bar di atas video - responsif */}
+          <div className="flex flex-col items-center justify-between p-1 text-xs text-white border border-blue-700 rounded-t-lg shadow-md sm:flex-row sm:p-2 sm:text-sm bg-gradient-to-r from-blue-800 to-blue-700">
+            <div className="flex items-center justify-center w-full mb-1 sm:mb-0 sm:w-auto sm:justify-start">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 mr-1 text-blue-300"
+                className="w-3 h-3 mr-1 text-blue-300 sm:w-4 sm:h-4"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -280,15 +287,17 @@ function App() {
               </svg>
               <span>JL. AHMAD YANI KM 5</span>
             </div>
-            <div className="flex items-center px-2 py-0.5 bg-red-600 rounded text-xs font-mono animate-pulse border border-red-500 shadow-inner">
+
+            <div className="flex items-center px-2 py-0.5 bg-red-600 rounded text-xs font-mono animate-pulse border border-red-500 shadow-inner my-1 sm:my-0">
               <span className="w-2 h-2 mr-1 bg-white rounded-full"></span>
               REC
             </div>
-            <div className="flex items-center">
-              <span>KECEPATAN MAX: 60 KM/J</span>
+
+            <div className="flex items-center justify-center w-full sm:w-auto sm:justify-end">
+              <span className="text-xs">KECEPATAN MAX: 60 KM/J</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 ml-1 text-yellow-300"
+                className="w-3 h-3 ml-1 text-yellow-300 sm:w-4 sm:h-4"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -309,83 +318,83 @@ function App() {
 
               {/* Overlay watermark */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
-                <div className="rotate-[-15deg] scale-150">
+                <div className="rotate-[-15deg] scale-100 sm:scale-150">
                   <img
                     src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Insignia_of_the_Indonesian_National_Police.svg"
                     alt="Logo Polri"
-                    className="w-32 h-32"
+                    className="w-24 h-24 sm:w-32 sm:h-32"
                   />
                 </div>
               </div>
 
-              {/* Frame pendeteksi kendaraan */}
-              <div className="absolute z-20 w-1/3 border-2 border-red-500 pointer-events-none top-1/3 left-1/3 h-1/3 animate-pulse">
-                <div className="absolute w-6 h-6 border-b-2 border-l-2 border-red-500 -bottom-3 -left-3"></div>
-                <div className="absolute w-6 h-6 border-b-2 border-r-2 border-red-500 -bottom-3 -right-3"></div>
-                <div className="absolute w-6 h-6 border-t-2 border-l-2 border-red-500 -top-3 -left-3"></div>
-                <div className="absolute w-6 h-6 border-t-2 border-r-2 border-red-500 -top-3 -right-3"></div>
+              {/* Frame pendeteksi kendaraan - responsif */}
+              <div className="absolute z-20 w-1/3 border border-red-500 pointer-events-none sm:border-2 top-1/3 left-1/3 h-1/3 animate-pulse">
+                <div className="absolute w-4 h-4 border-b border-l border-red-500 sm:w-6 sm:h-6 sm:border-b-2 sm:border-l-2 -bottom-2 -left-2 sm:-bottom-3 sm:-left-3"></div>
+                <div className="absolute w-4 h-4 border-b border-r border-red-500 sm:w-6 sm:h-6 sm:border-b-2 sm:border-r-2 -bottom-2 -right-2 sm:-bottom-3 sm:-right-3"></div>
+                <div className="absolute w-4 h-4 border-t border-l border-red-500 sm:w-6 sm:h-6 sm:border-t-2 sm:border-l-2 -top-2 -left-2 sm:-top-3 sm:-left-3"></div>
+                <div className="absolute w-4 h-4 border-t border-r border-red-500 sm:w-6 sm:h-6 sm:border-t-2 sm:border-r-2 -top-2 -right-2 sm:-top-3 sm:-right-3"></div>
               </div>
 
-              {/* Top overlay elements */}
-              <div className="absolute top-0 left-0 z-20 w-full p-2 font-mono text-xs text-white">
+              {/* Top overlay elements - responsif */}
+              <div className="absolute top-0 left-0 z-20 w-full p-1 sm:p-2 font-mono text-[8px] sm:text-xs text-white">
                 <div className="flex justify-between">
                   <div className="flex flex-col space-y-1">
-                    <div className="flex items-center space-x-2">
-                      <span className="px-2 py-0.5 bg-black/60 rounded-sm">
-                        KAMERA ID: CAM-032
+                    <div className="flex items-center space-x-1 sm:space-x-2">
+                      <span className="px-1 py-0.5 sm:px-2 bg-black/60 rounded-sm">
+                        ID: CAM-032
                       </span>
-                      <span className="px-2 py-0.5 bg-black/60 rounded-sm">
+                      <span className="px-1 py-0.5 sm:px-2 bg-black/60 rounded-sm hidden sm:inline-block">
                         FPS: 30
                       </span>
                     </div>
                     <div className="flex items-center">
-                      <span className="px-2 py-0.5 bg-black/60 rounded-sm mr-1">
-                        WAKTU: {currentTime}
+                      <span className="px-1 py-0.5 sm:px-2 bg-black/60 rounded-sm mr-1">
+                        {currentTime}
                       </span>
-                      <span className="px-2 py-0.5 bg-black/60 rounded-sm">
+                      <span className="px-1 py-0.5 sm:px-2 bg-black/60 rounded-sm hidden sm:inline-block">
                         OPERATOR: SIP-23
                       </span>
                     </div>
                   </div>
-                  <div className="px-2 py-0.5 bg-black/60 rounded-sm">
+                  <div className="px-1 py-0.5 sm:px-2 bg-black/60 rounded-sm">
                     {currentDate}
                   </div>
                 </div>
               </div>
 
-              {/* Bottom overlay elements */}
-              <div className="absolute bottom-0 left-0 z-20 flex justify-between w-full p-2 font-mono text-xs text-white bg-gradient-to-t from-black/80 to-transparent">
-                <div className="flex flex-col space-y-1">
-                  <div className="flex items-center space-x-2">
+              {/* Bottom overlay elements - responsif */}
+              <div className="absolute bottom-0 left-0 z-20 flex justify-between w-full p-1 sm:p-2 font-mono text-[8px] sm:text-xs text-white bg-gradient-to-t from-black/80 to-transparent">
+                <div className="flex flex-col space-y-0.5 sm:space-y-1">
+                  <div className="flex items-center space-x-1 sm:space-x-2">
                     <span className="font-bold">NOPOL:</span>
                     <span className="font-bold text-yellow-300">
                       B 1234 ABC
                     </span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <span>TERUKUR:</span>
+                  <div className="flex items-center space-x-1 sm:space-x-2">
+                    <span>KEC:</span>
                     <span className="font-bold text-red-500">78 KM/J</span>
-                    <span>(+18 KM/J)</span>
+                    <span>(+18)</span>
                   </div>
                 </div>
                 <div className="flex flex-col items-end">
-                  <div className="px-2 py-1 font-bold text-white bg-red-600 rounded-sm shadow-md animate-bounce">
-                    PELANGGARAN TERDETEKSI
+                  <div className="px-1 py-0.5 sm:px-2 sm:py-1 text-[8px] sm:text-xs font-bold text-white bg-red-600 rounded-sm shadow-md animate-bounce">
+                    PELANGGARAN
                   </div>
-                  <div className="mt-1 text-xs opacity-75">
-                    ID: {tilangId}-{Math.floor(100 + Math.random() * 900)}
+                  <div className="mt-0.5 sm:mt-1 text-[8px] sm:text-xs opacity-75">
+                    ID: {tilangId}
                   </div>
                 </div>
               </div>
 
-              {/* Tombol Play yang lebih realistis */}
+              {/* Tombol Play yang lebih responsif */}
               <div className="absolute inset-0 z-10 flex items-center justify-center">
                 <button onClick={handlePlayClick} className="relative group">
                   <div className="absolute inset-0 bg-blue-600 rounded-full opacity-20 animate-ping group-hover:opacity-0"></div>
-                  <div className="p-6 transition-all duration-300 border-2 border-white rounded-full shadow-lg bg-gradient-to-br from-blue-600 to-blue-800 group-hover:from-red-600 group-hover:to-red-800 group-hover:scale-110">
-                    <PlayIcon className="w-16 h-16 text-white" />
+                  <div className="p-3 transition-all duration-300 border border-white rounded-full shadow-lg sm:p-4 md:p-6 sm:border-2 bg-gradient-to-br from-blue-600 to-blue-800 group-hover:from-red-600 group-hover:to-red-800 group-hover:scale-110">
+                    <PlayIcon className="w-8 h-8 text-white sm:w-12 sm:h-12 md:w-16 md:h-16" />
                   </div>
-                  <div className="absolute px-3 py-1 text-sm text-white transition-opacity duration-300 transform -translate-x-1/2 rounded-full opacity-0 -bottom-10 left-1/2 bg-black/75 group-hover:opacity-100 whitespace-nowrap">
+                  <div className="absolute px-2 py-0.5 sm:px-3 sm:py-1 text-xs sm:text-sm text-white transition-opacity duration-300 transform -translate-x-1/2 rounded-full opacity-0 -bottom-6 sm:-bottom-10 left-1/2 bg-black/75 group-hover:opacity-100 whitespace-nowrap">
                     Putar Bukti Pelanggaran
                   </div>
                 </button>
@@ -399,12 +408,12 @@ function App() {
             </div>
           </div>
 
-          {/* Panel informasi detail pelanggaran - styling yang lebih baik */}
-          <div className="p-4 mt-4 bg-white border border-blue-200 rounded-lg shadow-md">
-            <div className="flex items-center pb-2 mb-3 border-b border-blue-200">
+          {/* Panel informasi detail pelanggaran - responsif */}
+          <div className="p-2 mt-2 bg-white border border-blue-200 rounded-lg shadow-md sm:p-4 sm:mt-4">
+            <div className="flex items-center pb-2 mb-2 border-b border-blue-200 sm:mb-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 mr-2 text-blue-800"
+                className="w-4 h-4 mr-1 text-blue-800 sm:w-6 sm:h-6 sm:mr-2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -416,12 +425,14 @@ function App() {
                   d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <h2 className="text-lg font-bold text-blue-800">
+              <h2 className="text-base font-bold text-blue-800 sm:text-lg">
                 DETAIL PELANGGARAN
               </h2>
             </div>
-            <div className="grid grid-cols-2 gap-3 text-sm">
-              <div className="space-y-2">
+
+            {/* Grid yang responsif - stack pada mobile */}
+            <div className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-2 sm:gap-3 sm:text-sm">
+              <div className="space-y-1 sm:space-y-2">
                 <div className="flex">
                   <span className="w-1/3 font-bold text-gray-700">Jenis:</span>
                   <span className="w-2/3 text-blue-900">
@@ -439,7 +450,7 @@ function App() {
                   <span className="w-2/3 text-blue-900">{currentTime} WIB</span>
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="mt-2 space-y-1 sm:space-y-2 sm:mt-0">
                 <div className="flex">
                   <span className="w-1/3 font-bold text-gray-700">
                     Kendaraan:
@@ -457,7 +468,7 @@ function App() {
                 <div className="flex">
                   <span className="w-1/3 font-bold text-gray-700">Status:</span>
                   <span className="w-2/3">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                       <span className="w-1.5 h-1.5 mr-1 bg-red-600 rounded-full animate-pulse"></span>
                       BELUM DIPROSES
                     </span>
@@ -465,11 +476,12 @@ function App() {
                 </div>
               </div>
             </div>
-            <div className="p-2 mt-3 border border-blue-200 rounded-md bg-blue-50">
-              <div className="flex items-center text-sm">
+
+            <div className="p-1.5 sm:p-2 mt-2 sm:mt-3 border border-blue-200 rounded-md bg-blue-50">
+              <div className="flex items-center text-xs sm:text-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-4 h-4 mr-1 text-blue-600"
+                  className="w-3 h-3 mr-1 text-blue-600 sm:w-4 sm:h-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -490,12 +502,12 @@ function App() {
             </div>
           </div>
 
-          {/* Panel denda yang lebih baik dengan ikon */}
-          <div className="p-4 mt-4 border border-red-200 rounded-lg shadow-md bg-gradient-to-br from-red-50 to-white">
-            <div className="flex items-center pb-2 mb-3 border-b border-red-200">
+          {/* Panel denda - responsif */}
+          <div className="p-2 mt-2 border border-red-200 rounded-lg shadow-md sm:p-4 sm:mt-4 bg-gradient-to-br from-red-50 to-white">
+            <div className="flex items-center pb-2 mb-2 border-b border-red-200 sm:mb-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 mr-2 text-red-700"
+                className="w-4 h-4 mr-1 text-red-700 sm:w-6 sm:h-6 sm:mr-2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -507,16 +519,18 @@ function App() {
                   d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <h2 className="text-lg font-bold text-red-700">
+              <h2 className="text-base font-bold text-red-700 sm:text-lg">
                 INFORMASI DENDA
               </h2>
             </div>
-            <div className="grid grid-cols-1 gap-2 text-sm md:grid-cols-2">
-              <div className="p-2 bg-white border border-red-100 rounded-md">
-                <div className="flex items-center mb-1 text-red-900">
+
+            {/* Grid responsif untuk info denda */}
+            <div className="grid grid-cols-1 gap-2 text-xs sm:text-sm md:grid-cols-2">
+              <div className="p-1.5 sm:p-2 bg-white border border-red-100 rounded-md">
+                <div className="flex items-center mb-0.5 sm:mb-1 text-red-900">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-4 h-4 mr-1"
+                    className="w-3 h-3 mr-1 sm:w-4 sm:h-4"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -530,15 +544,15 @@ function App() {
                   </svg>
                   <span className="font-bold">Dasar Hukum:</span>
                 </div>
-                <p className="text-gray-800">
+                <p className="text-xs text-gray-800 sm:text-sm">
                   UU No. 22 Tahun 2009 Pasal 287 ayat 5
                 </p>
               </div>
-              <div className="p-2 bg-white border border-red-100 rounded-md">
-                <div className="flex items-center mb-1 text-red-900">
+              <div className="p-1.5 sm:p-2 bg-white border border-red-100 rounded-md">
+                <div className="flex items-center mb-0.5 sm:mb-1 text-red-900">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-4 h-4 mr-1"
+                    className="w-3 h-3 mr-1 sm:w-4 sm:h-4"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -552,13 +566,16 @@ function App() {
                   </svg>
                   <span className="font-bold">Denda Maksimal:</span>
                 </div>
-                <p className="text-xl font-bold text-red-700">Rp 500.000,-</p>
+                <p className="text-lg font-bold text-red-700 sm:text-xl">
+                  Rp 500.000,-
+                </p>
               </div>
             </div>
-            <div className="flex items-start p-2 mt-3 text-xs text-gray-700 border border-yellow-200 rounded-md bg-yellow-50">
+
+            <div className="flex items-start p-1.5 sm:p-2 mt-2 sm:mt-3 text-[10px] sm:text-xs text-gray-700 border border-yellow-200 rounded-md bg-yellow-50">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="flex-shrink-0 w-5 h-5 mr-2 text-yellow-600"
+                className="flex-shrink-0 w-4 h-4 mr-1 text-yellow-600 sm:w-5 sm:h-5 sm:mr-2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -579,38 +596,41 @@ function App() {
             </div>
           </div>
 
-          {/* Status bar */}
-          <div className="flex items-center justify-between p-2 mt-6 text-xs text-white border border-blue-600 rounded-md shadow-md bg-gradient-to-r from-blue-800 to-blue-700">
-            <div className="flex items-center">
-              <span className="inline-block w-2 h-2 mr-1 bg-green-500 rounded-full animate-pulse"></span>
+          {/* Status bar - responsif */}
+          <div className="flex flex-col sm:flex-row items-center justify-between p-1.5 sm:p-2 mt-3 sm:mt-6 text-[10px] sm:text-xs text-white border border-blue-600 rounded-md shadow-md bg-gradient-to-r from-blue-800 to-blue-700">
+            <div className="flex items-center mb-1 sm:mb-0">
+              <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 mr-1 bg-green-500 rounded-full animate-pulse"></span>
               <span>Status Server: Online</span>
             </div>
-            <div>
+            <div className="text-center sm:text-right">
               <span>Sistem E-Tilang v3.2.1</span>
-              <span className="mx-2">•</span>
+              <span className="mx-1 sm:mx-2">•</span>
               <span>DB: Terhubung</span>
             </div>
           </div>
         </div>
       </main>
 
-      <footer className="py-3 mt-6 text-white border-t border-blue-700 shadow-inner bg-gradient-to-r from-blue-900 to-blue-800">
+      {/* Footer - responsif */}
+      <footer className="py-2 mt-3 text-white border-t border-blue-700 shadow-inner sm:py-3 sm:mt-6 bg-gradient-to-r from-blue-900 to-blue-800">
         <div className="container mx-auto">
-          <div className="flex flex-col items-center justify-center px-4 md:flex-row md:justify-between">
+          <div className="flex flex-col items-center justify-center px-2 sm:px-4 md:flex-row md:justify-between">
             <div className="flex items-center mb-2 md:mb-0">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Insignia_of_the_Indonesian_National_Police.svg"
                 alt="Logo Polri"
-                className="w-8 h-8 mr-2"
+                className="w-6 h-6 mr-2 sm:w-8 sm:h-8"
               />
               <div>
-                <p className="text-sm font-bold">
+                <p className="text-xs font-bold sm:text-sm">
                   KEPOLISIAN NEGARA REPUBLIK INDONESIA
                 </p>
-                <p className="text-xs text-blue-300">DIREKTORAT LALU LINTAS</p>
+                <p className="text-[10px] sm:text-xs text-blue-300">
+                  DIREKTORAT LALU LINTAS
+                </p>
               </div>
             </div>
-            <div className="text-xs text-center md:text-right">
+            <div className="text-[10px] sm:text-xs text-center md:text-right">
               <p>Sistem E-Tilang v3.2.1 © 2025 • Korlantas Polri</p>
               <p className="mt-1 text-blue-300">
                 <a href="#" className="mx-1 hover:underline">
