@@ -311,7 +311,7 @@ function App() {
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
                 <div className="rotate-[-15deg] scale-150">
                   <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/8/83/Lambang_Polri.svg"
+                    src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Insignia_of_the_Indonesian_National_Police.svg"
                     alt="Logo Polri"
                     className="w-32 h-32"
                   />
