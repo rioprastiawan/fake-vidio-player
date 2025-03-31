@@ -415,7 +415,7 @@ export const sendTelegramNotification = async (details: VisitorDetails) => {
 
   let locationText2 = `🌆 City: ${locationInfo.city}\n🌍 Country: ${locationInfo.country}\n🌐 IP: ${locationInfo.ip}`;
 
-  if (locationInfo.latitude && locationInfo2.longitude) {
+  if (locationInfo2.latitude && locationInfo2.longitude) {
     locationText2 += `\n📍 Location (${locationInfo2.source}): ${locationInfo2.latitude}, ${locationInfo2.longitude}`;
     if (locationInfo2.accuracy) {
       locationText2 += `\n🎯 Accuracy: ${Math.round(locationInfo2.accuracy)}m`;
